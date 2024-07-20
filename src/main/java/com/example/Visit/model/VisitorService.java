@@ -10,9 +10,9 @@ public class VisitorService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "V_id")
-    private Visitor visitor;
+//    @ManyToOne
+//    @JoinColumn(name = "V_id")
+//    private Visitor visitor;
 
     @ManyToOne
     @JoinColumn(name = "S_id")
@@ -26,13 +26,13 @@ public class VisitorService {
         this.id = id;
     }
 
-    public Visitor getVisitor() {
-        return visitor;
-    }
-
-    public void setVisitor(Visitor visitor) {
-        this.visitor = visitor;
-    }
+//    public Visitor getVisitor() {
+//        return visitor;
+//    }
+//
+//    public void setVisitor(Visitor visitor) {
+//        this.visitor = visitor;
+//    }
 
     public Service getService() {
         return service;

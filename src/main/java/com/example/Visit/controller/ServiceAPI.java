@@ -37,7 +37,7 @@ public class ServiceAPI {
             Service service1 = serviceRepo.save(service);
             return new ResponseEntity<>(service1,HttpStatus.OK);
         }catch (Exception exception){
-            return  new ResponseEntity<>("Something went wrrong",HttpStatus.BAD_REQUEST);
+            return  new ResponseEntity<>("Something went wrong",HttpStatus.BAD_REQUEST);
         }
     }
     @DeleteMapping("/delete/service{S_id}")

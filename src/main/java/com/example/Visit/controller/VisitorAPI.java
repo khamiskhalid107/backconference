@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class VisitorAPI {
 
     @Autowired
@@ -42,19 +43,19 @@ public class VisitorAPI {
         }
     }
 
-    @DeleteMapping("/visitor/delete{V_id}")
-    public ResponseEntity<?> deleteVisitor(@PathVariable int V_id){
+    @DeleteMapping("/visitor/delete{id}")
+    public ResponseEntity<?> deleteVisitor(@PathVariable Long id){
         try {
-            visitorRepo.deleteById(V_id);
+            visitorRepo.deleteById(id);
             return new ResponseEntity<>("Visitor deleted Successful",HttpStatus.OK);
         }catch (Exception exception){
             return new ResponseEntity<>("Something went wrong please try again",HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/byId{V_id}")
-    public ResponseEntity<?> getByID(@PathVariable int V_id){
+    @GetMapping("/byId{id}")
+    public ResponseEntity<?> getByID(@PathVariable Long id){
         try {
-            Optional<Visitor> optionalVisitor = visitorRepo.findById(V_id);
+            Optional<Visitor> optionalVisitor = visitorRepo.findById(id);
             if (optionalVisitor.isPresent()){
                 return new ResponseEntity<>(optionalVisitor,HttpStatus.OK);
             }else {
@@ -62,6 +63,26 @@ public class VisitorAPI {
             }
         }catch (Exception exception){
             return  new ResponseEntity<>("Something went wrong please try again ",HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/update/visitor{id}")
+    public ResponseEntity<?> updateVisitor(@PathVariable Long id , @RequestBody Visitor updateVisitor){
+        Optional<Visitor> visitorOptional = visitorRepo.findById(id);
+        if (visitorOptional.isPresent()){
+            Visitor visitor = visitorOptional.get();
+            visitor.setUsername(updateVisitor.getUsername());
+            visitor.setEmail(updateVisitor.getEmail());
+            visitor.setId(updateVisitor.getId());
+            visitor.setRole(updateVisitor.getRole());
+            visitor.setPhone(updateVisitor.getPhone());
+            visitor.setV_purpose(updateVisitor.getV_purpose());
+//            visitor.setCheckInTime(updateVisitor.getCheckInTime());
+//            visitor.setCheckOutTime(updateVisitor.getCheckOutTime());
+            visitorRepo.save(visitor);
+            return new ResponseEntity<>(visitor,HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("Visitor not found",HttpStatus.NOT_FOUND);
         }
     }
 }
