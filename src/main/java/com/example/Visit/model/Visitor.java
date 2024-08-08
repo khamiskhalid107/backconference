@@ -41,6 +41,7 @@ public class Visitor extends User {
     }
 
     public void setV_purpose(String v_purpose) {
+
         V_purpose = v_purpose;
     }
 

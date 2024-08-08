@@ -82,6 +82,7 @@ public class UserAPI {
             User user1 = new User();
             user1.setRole(user.getRole());
             user1.setUsername(user.getUsername());
+            user1.setStatus(user.getStatus());
 //            user1.setPasword(passwordEncoder.encode(user.getPasword()));
             userRepo.save(user1);
 
