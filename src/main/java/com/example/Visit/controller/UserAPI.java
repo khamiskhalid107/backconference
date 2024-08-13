@@ -3,6 +3,7 @@ package com.example.Visit.controller;
 import com.example.Visit.dto.UserRequest;
 import com.example.Visit.model.User;
 import com.example.Visit.repository.UserRepo;
+import com.example.Visit.services.EmailService;
 import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,17 +23,42 @@ public class UserAPI {
     @Autowired
     private UserRepo userRepo;
 
+
+    @Autowired
+    private EmailService emailService;
     @PatchMapping("/{id}/status")
     public ResponseEntity<User> updateStatus(@PathVariable Long id) {
         User user = userRepo.findById(id).orElseThrow();
+        String newStatus;
+
         if (user.getStatus().equals("available")) {
-            user.setStatus("unavailable");
+            newStatus = "unavailable";
         } else {
-            user.setStatus("available");
+            newStatus = "available";
         }
+
+        user.setStatus(newStatus);
         userRepo.save(user);
+
+        // Send email notification
+        String subject = "Status Update";
+        String text = "Dear " + user.getFullname() + ", your status has been updated to " + newStatus + ".";
+        emailService.sendEmail(user.getEmail(), subject, text);
+
         return ResponseEntity.ok(user);
     }
+
+//    @PatchMapping("/{id}/status")
+//    public ResponseEntity<User> updateStatus(@PathVariable Long id) {
+//        User user = userRepo.findById(id).orElseThrow();
+//        if (user.getStatus().equals("available")) {
+//            user.setStatus("unavailable");
+//        } else {
+//            user.setStatus("available");
+//        }
+//        userRepo.save(user);
+//        return ResponseEntity.ok(user);
+//    }
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
 

@@ -45,6 +45,9 @@ public class Visitor extends User {
         V_purpose = v_purpose;
     }
 
+
+
+
 //    public String getV_contact() {
 //        return V_contact;
 //    }

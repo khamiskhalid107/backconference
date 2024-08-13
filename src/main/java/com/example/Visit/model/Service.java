@@ -1,9 +1,6 @@
 package com.example.Visit.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -12,8 +9,16 @@ public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int S_id;
-    private String Service_name;
-    private String Service_desc;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Staff staff;
+
+//    @ManyToOne
+//    @JoinColumn(name = "BookingId")
+//    private Booking booking;
+
+    private String serviceName;
+    private String serviceDesc;
 
     public int getS_id() {
         return S_id;
@@ -23,19 +28,19 @@ public class Service {
         S_id = s_id;
     }
 
-    public String getService_name() {
-        return Service_name;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setService_name(String service_name) {
-        Service_name = service_name;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
-    public String getService_desc() {
-        return Service_desc;
+    public String getServiceDesc() {
+        return serviceDesc;
     }
 
-    public void setService_desc(String service_desc) {
-        Service_desc = service_desc;
+    public void setServiceDesc(String serviceDesc) {
+        this.serviceDesc = serviceDesc;
     }
 }

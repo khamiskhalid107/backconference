@@ -36,4 +36,5 @@ public class Staff extends User{
     public void setStaffService(String staffService) {
         this.staffService = staffService;
     }
+
 }
