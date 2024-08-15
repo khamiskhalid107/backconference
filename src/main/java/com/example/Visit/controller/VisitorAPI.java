@@ -13,7 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "http://localhost:3000/")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:192.168.15.228"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:10.4.5.158"})
 public class VisitorAPI {
 
     @Autowired
@@ -86,4 +86,15 @@ public class VisitorAPI {
             return new ResponseEntity<>("Visitor not found",HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/count/visitors")
+    public ResponseEntity<Long> countVisitors() {
+        try {
+            long count = visitorRepo.count();
+            return new ResponseEntity<>(count, HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(0L, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

@@ -45,4 +45,12 @@ public class BookingApi {
         Booking updatedBooking = bookingRepository.save(booking);
         return ResponseEntity.ok(updatedBooking);
     }
+
+
+    @GetMapping("/bookingCount")
+    public ResponseEntity<Long> getBookingCount() {
+        long count = bookingRepository.count();
+        return ResponseEntity.ok(count);
+    }
+
 }

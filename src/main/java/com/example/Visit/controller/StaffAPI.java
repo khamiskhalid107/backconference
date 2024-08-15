@@ -43,6 +43,8 @@ public class StaffAPI {
         } catch (Exception e) {
             return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
         }
+
+
     }
 
     @PostMapping("/add")
@@ -87,4 +89,15 @@ public class StaffAPI {
             return new ResponseEntity<>("Error deleting staff", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/count")
+    public ResponseEntity<?> getStaffCount() {
+        try {
+            long count = staffRepo.count();
+            return new ResponseEntity<>(count, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

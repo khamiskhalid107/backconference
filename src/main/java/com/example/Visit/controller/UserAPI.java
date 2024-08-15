@@ -26,39 +26,39 @@ public class UserAPI {
 
     @Autowired
     private EmailService emailService;
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<User> updateStatus(@PathVariable Long id) {
-        User user = userRepo.findById(id).orElseThrow();
-        String newStatus;
-
-        if (user.getStatus().equals("available")) {
-            newStatus = "unavailable";
-        } else {
-            newStatus = "available";
-        }
-
-        user.setStatus(newStatus);
-        userRepo.save(user);
-
-        // Send email notification
-        String subject = "Status Update";
-        String text = "Dear " + user.getFullname() + ", your status has been updated to " + newStatus + ".";
-        emailService.sendEmail(user.getEmail(), subject, text);
-
-        return ResponseEntity.ok(user);
-    }
-
 //    @PatchMapping("/{id}/status")
 //    public ResponseEntity<User> updateStatus(@PathVariable Long id) {
 //        User user = userRepo.findById(id).orElseThrow();
+//        String newStatus;
+//
 //        if (user.getStatus().equals("available")) {
-//            user.setStatus("unavailable");
+//            newStatus = "unavailable";
 //        } else {
-//            user.setStatus("available");
+//            newStatus = "available";
 //        }
+//
+//        user.setStatus(newStatus);
 //        userRepo.save(user);
+//
+//        // Send email notification
+//        String subject = "Status Update";
+//        String text = "Dear " + user.getFullname() + ", your status has been updated to " + newStatus + ".";
+//        emailService.sendEmail(user.getEmail(), subject, text);
+//
 //        return ResponseEntity.ok(user);
 //    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<User> updateStatus(@PathVariable Long id) {
+        User user = userRepo.findById(id).orElseThrow();
+        if (user.getStatus().equals("available")) {
+            user.setStatus("unavailable");
+        } else {
+            user.setStatus("available");
+        }
+        userRepo.save(user);
+        return ResponseEntity.ok(user);
+    }
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
 
