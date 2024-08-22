@@ -59,6 +59,10 @@ public class UserAPI {
         userRepo.save(user);
         return ResponseEntity.ok(user);
     }
+
+
+
+
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
 

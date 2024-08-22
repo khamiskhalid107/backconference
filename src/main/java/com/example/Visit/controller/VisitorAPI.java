@@ -13,7 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 //@CrossOrigin(origins = "http://localhost:3000/")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:10.4.5.158"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:10.4.5.17"})
 public class VisitorAPI {
 
     @Autowired

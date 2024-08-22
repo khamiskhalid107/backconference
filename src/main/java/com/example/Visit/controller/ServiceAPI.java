@@ -63,5 +63,17 @@ public class ServiceAPI {
             return new ResponseEntity<>("Something went wrong please try again",HttpStatus.BAD_REQUEST);
         }
     }
+
+
+    @GetMapping("/count/services")
+    public ResponseEntity<?> countServices() {
+        try {
+            long serviceCount = serviceRepo.count();
+            return new ResponseEntity<>(serviceCount, HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
 
